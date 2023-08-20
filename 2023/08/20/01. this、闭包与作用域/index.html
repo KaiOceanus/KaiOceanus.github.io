@@ -8,11 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="01. this、闭包与作用域作用域js采用静态作用域（词法作用域），函数的作用域在函数定义的时候就决定了 12345678910111213var value &#x3D; 1;function foo() &amp;#123;    console.log(value);&amp;#125;function bar() &amp;#123;    var value &#x3D; 2;    foo();&amp;#125;&#x2F;&#x2F;调用foo时fo">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2023/08/20/01.%20this%E3%80%81%E9%97%AD%E5%8C%85%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="01. this、闭包与作用域作用域js采用静态作用域（词法作用域），函数的作用域在函数定义的时候就决定了 12345678910111213var value &#x3D; 1;function foo() &amp;#123;    console.log(value);&amp;#125;function bar() &amp;#123;    var value &#x3D; 2;    foo();&amp;#125;&#x2F;&#x2F;调用foo时fo">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-20T02:37:16.858Z">
+<meta property="article:modified_time" content="2023-08-13T09:00:40.079Z">
 <meta property="article:author" content="Ortega Yang">
 <meta name="twitter:card" content="summary">
   
@@ -150,173 +154,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-04.js模块化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="03-js模块化"><a href="#03-js模块化" class="headerlink" title="03. js模块化"></a>03. js模块化</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/08/20/04.js%E6%A8%A1%E5%9D%97%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-02.面向对象编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="02-面向对象编程"><a href="#02-面向对象编程" class="headerlink" title="02.面向对象编程"></a>02.面向对象编程</h2><h4 id="参数按值传递-amp-按共享传递"><a href="#参数按值传递-amp-按共享传递" class="headerlink" title="参数按值传递&amp;按共享传递"></a>参数按值传递&amp;按共享传递</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">o</span>) &#123;</span><br><span class="line">    o = <span class="number">2</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(o); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>基本类型存储在栈中，栈中存储大小固定的值，其buffer大小是固定的</p>
-</blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">o</span>) &#123;</span><br><span class="line">    o = <span class="number">2</span>; <span class="comment">// 将传入的指针地址指向了此时的2</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(o); <span class="comment">// 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(obj);<span class="comment">// 而obj本身的指针地址没有变化</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">value</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="手写call-amp-apply"><a href="#手写call-amp-apply" class="headerlink" title="手写call&amp;apply"></a>手写call&amp;apply</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">value</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar.<span class="title function_">call</span>(foo); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// call</span></span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">call2</span> = <span class="keyword">function</span>(<span class="params">context</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> context=context || <span class="variable language_">window</span>; <span class="comment">// call传入null时认为指向window</span></span><br><span class="line">    context.<span class="property">someFn</span> = <span class="variable language_">this</span>; <span class="comment">// this指向调用call的bar，给foo指定someFn属性，值为bar</span></span><br><span class="line">    <span class="keyword">let</span> arg = [...<span class="variable language_">arguments</span>].<span class="title function_">slice</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">const</span> result = context.<span class="title function_">someFn</span>(...arg);<span class="comment">// 调用了bar，此时this指向context</span></span><br><span class="line">    <span class="keyword">delete</span> context.<span class="property">someFn</span>;<span class="comment">// 删除</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// bar.call(foo)</span></span><br><span class="line"><span class="comment">// call中指定的foo本身没有bar这个属性，相当于给call指定的foo增加一个属性bar，bar中this指向foo，调用完之后再删除</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// apply</span></span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">apply2</span> = <span class="keyword">function</span>(<span class="params">context,arr = []</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> context=context || <span class="variable language_">window</span>; <span class="comment">// call传入null时认为指向window</span></span><br><span class="line">    context.<span class="property">someFn</span> = <span class="variable language_">this</span>; <span class="comment">// this指向调用call的bar，给foo指定someFn属性，值为bar</span></span><br><span class="line">    <span class="keyword">let</span> arg = [...<span class="variable language_">arguments</span>].<span class="title function_">slice</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">const</span> result = context.<span class="title function_">someFn</span>(...arr);<span class="comment">// 调用了bar，此时this指向context</span></span><br><span class="line">    <span class="keyword">delete</span> context.<span class="property">someFn</span>;<span class="comment">// 删除</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// bar.call(foo)</span></span><br><span class="line"><span class="comment">// call中指定的foo本身没有bar这个属性，相当于给call指定的foo增加一个属性bar，bar中this指向foo，调用完之后再删除</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bind</span></span><br><span class="line"><span class="keyword">const</span> bindFoo = bar.<span class="title function_">bind</span>(foo);</span><br><span class="line"><span class="title function_">bindFoo</span>();</span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">bind2</span> = <span class="keyword">function</span>(<span class="params">context</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> _this = <span class="variable language_">this</span>; <span class="comment">// 保证this指向原来的bar而不是window</span></span><br><span class="line">    <span class="keyword">var</span> args= [...<span class="variable language_">arguments</span>].<span class="title function_">slice</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> bindArgs= [...<span class="variable language_">arguments</span>]</span><br><span class="line">        <span class="keyword">return</span> _this.<span class="title function_">apply</span>(context, [...args,...bindArgs])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="手写new"><a href="#手写new" class="headerlink" title="手写new"></a>手写new</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="title function_">objectFactory</span>(<span class="title class_">Person</span>,name,age);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">objectFactory</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> <span class="title class_">Constructor</span> = [].<span class="property">shift</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);<span class="comment">// 构造函数</span></span><br><span class="line">    obj.<span class="property">__proto__</span> = <span class="title class_">Constructor</span>.<span class="property"><span class="keyword">prototype</span></span>; <span class="comment">// 关联实例和原型</span></span><br><span class="line">    <span class="keyword">var</span> ret = <span class="title class_">Constructor</span>.<span class="title function_">apply</span>(obj,<span class="variable language_">arguments</span>);<span class="comment">//  绑定this并执行构造函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> ret === <span class="string">&quot;object&quot;</span> ? <span class="attr">ret</span>: obj;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="类数组转数组"><a href="#类数组转数组" class="headerlink" title="类数组转数组"></a>类数组转数组</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arrayLike = &#123;<span class="number">0</span>: <span class="string">&#x27;name&#x27;</span>, <span class="number">1</span>: <span class="string">&#x27;age&#x27;</span>, <span class="number">2</span>: <span class="string">&#x27;sex&#x27;</span>, <span class="attr">length</span>: <span class="number">3</span> &#125;;</span><br><span class="line"><span class="comment">// 1. slice</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(arrayLike); <span class="comment">// [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span></span><br><span class="line"><span class="comment">// 2. splice</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">splice</span>.<span class="title function_">call</span>(arrayLike, <span class="number">0</span>); <span class="comment">// [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span></span><br><span class="line"><span class="comment">// 3. ES6 Array.from</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="title function_">from</span>(arrayLike); <span class="comment">// [&quot;name&quot;, &quot;age&quot;, &quot;sex&quot;] </span></span><br><span class="line"><span class="comment">// 4. apply</span></span><br><span class="line"><span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">concat</span>.<span class="title function_">apply</span>([], arrayLike)</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/08/20/02.%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-03.js模块化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="03-js模块化"><a href="#03-js模块化" class="headerlink" title="03. js模块化"></a>03. js模块化</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/08/20/03.js%E6%A8%A1%E5%9D%97%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-01. this、闭包与作用域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-01. this、闭包与作用域" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
@@ -416,6 +254,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -423,16 +282,79 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/08/20/01.%20this%E3%80%81%E9%97%AD%E5%8C%85%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/08/20/01.%20this%E3%80%81%E9%97%AD%E5%8C%85%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2023/08/20/03.js%E6%A8%A1%E5%9D%97%E5%8C%96/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -452,8 +374,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -476,8 +404,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
