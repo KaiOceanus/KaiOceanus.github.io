@@ -17,7 +17,7 @@ export default defineConfig({
         items: [
           { text: "概览", link: "/LLM/overview" },
           { text: "分词与Embedding", link: "/LLM/tokenizer" },
-          { text: "Transformer机制", link: "/LLM/transformer" },
+          { text: "注意力机制", link: "/LLM/attention" },
           { text: "GPT框架", link: "/LLM/gpt_structure" },
           { text: "预训练", link: "/LLM/pretrain" },
           { text: "微调", link: "/LLM/fine_tuning" },
