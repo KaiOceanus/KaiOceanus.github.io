@@ -195,15 +195,70 @@ integers = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
 strings = tokenizer.decode(integers)
 ```
 
-### 进阶：BBPE
+### [进阶：BBPE](#bbpe)
 
-现代的大模型（如 GPT-4, LLaMA）通常使用 **BBPE**。传统的 BPE 初始词表是基于字符的，面对多语言（如中文、日文）时，基础字符集会非常庞大。BBPE 直接将文本视为 **Byte（字节）** 流（一个 UTF-8 字符占 1~4 个字节），基础词表固定只有 256 个字节，然后在这个基础上做 BPE 合并。这使得模型可以轻松实现跨语言的分词，且词表更加紧凑。
 
-## 三、Embedding层与位置编码：构建词与词之间的关系
+
+## 三、Embedding层与位置编码：为token添加更丰富的信息
+
+> Embedding层的作用：Embedding 层将用户输入的离散 token 序列转换成模型内部的连续向量表示，并编码位置信息，为后续 Transformer 层的自注意力计算提供可处理的语义基础。它是“从符号到理解”的第一道桥梁。
+
+### 词嵌入：Token Embedding
+
+上一节已介绍了如何将词转换为token id，本节将介绍如何将token id映射为高维向量，以及如何构建token之间的关系。
+
+Transformer架构中，Embedding是这样的一个层：
+
+```py
+# 以GPT2为例，词表大小是50257，输出维度是768维
+vocab_size = 50257
+output_dim = 768
+embedding_layer = torch.nn.Embedding(vocab_size, output_dim) 
+```
+
+想象这里的embedding_layer是一个50257行，768列的巨大表格。假设此时我们输入的token为 `The cat sat`：
+
+通过 `The` `Cat` `Sat`3个词的token id（通过tiktoken库，使用BPE算法得到），我们从这张巨大表格里查询出这3个词对应的高维向量，得到一个 `[seq_len × hidden_size]` 的浮点矩阵。这一步的作用是将离散符号映射到高维连续空间，相似的词在嵌入空间中距离更近，使模型能利用语义相似性进行预测。
+
+### 位置嵌入：Positional Embedding
+
+词嵌入只是单纯的查表操作，但语句“你爱我”和“我爱你”中，“你”和“我”所表达的语义是不一致的。为给token嵌入这种位置上的语义信息，我们引入位置编码。
+
+在GPT-2中，positional embedding层被设置为如下的一个层：
+
+```py
+# context_length为模型所能处理的最大上下文长度。GPT-2的context_length为1024
+pos_embedding_layer = torch.nn.Embedding(context_length, output_dim)
+```
+
+类似上面介绍的Token Embedding，Positional Embedding也是一个巨大的查找表。对于输入`The cat sat`，模型按这3个token的位置，在Positional Embedding中取出它们的位置信息，并通过相加的方式添加到原有的Token Embedding中：
+
+```python
+pos_embeddings = pos_embedding_layer(torch.arange(context_length))
+input_embeddings = token_embeddings + pos_embeddings
+```
+
+这就是Transformer论文原文中的**绝对位置编码**，给每个位置赋予一个固定或可学习的向量，加到 token embedding 上。其缺点是无法很好外推到训练时未见过的更长序列（外推能力差），且无法显式捕捉 token 之间的相对位置关系。
+
+[绝对位置编码的改良：相对位置编码与旋转位置编码](#rope)
 
 ## 拓展
 
+<span id="bbpe"></span>
+
 ### BBPE算法
+
+现代的大模型（如 GPT-4, LLaMA）通常使用 **BBPE**。传统的 BPE 初始词表是基于字符的，面对多语言（如中文、日文）时，基础字符集会非常庞大。BBPE 直接将文本视为 **Byte（字节）** 流（一个 UTF-8 字符占 1~4 个字节），基础词表固定只有 256 个字节，然后在这个基础上做 BPE 合并。这使得模型可以轻松实现跨语言的分词，且词表更加紧凑。
+
+#### 前置知识：Unicode编码
+
+> Unicode要解决的核心问题是：**如何让计算机统一表示全世界所有语言的文字符号**。
+
+#### BBPE的基本实现
+
+<span id="rope"></span>
+
+### 相对位置编码
 
 ### 旋转位置编码
 
