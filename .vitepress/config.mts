@@ -29,7 +29,11 @@ export default defineConfig({
       "/RL": [
         {
           text: "强化学习",
-          items: [{ text: "概览", link: "/RL/overview" }],
+          items: [
+            { text: "概览", link: "/RL/overview" },
+            { text: "PPO", link: "/RL/ppo" },
+            { text: "GRPO", link: "/RL/grpo" },
+          ],
         },
       ],
       "/blog": [
